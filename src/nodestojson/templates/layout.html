@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+    <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    <title>web-graph</title>
+
+    <script src="{{ url_for('static', filename='d3.v3.min.js') }}"></script>
+
+    <style>
+
+.axis {
+    shape-rendering: crispEdges;
+}
+
+.axis line, .axis path {
+    stroke-width: 1px;
+    stroke: #000;
+    fill: none;
+}
+
+circle.node {
+  stroke: #fff;
+  stroke-width: 1.5px;
+}
+
+line.link {
+  stroke: #999;
+  stroke-opacity: .6;
+}
+
+div#backstyle {
+    background-color : parent
+}
+
+    </style>
+
+    </head>
+    <body>
+        {% block content %}{% endblock %}
+    </body>
+</html>

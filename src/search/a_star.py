@@ -112,11 +112,11 @@ def weighted_astar_search(task, heuristic, weight=5, use_relaxed_plan=False):
     return astar_search(task, heuristic, ordered_node_weighted_astar(weight),
                         use_relaxed_plan)
 
-def node_creater_client(foo2):
+def node_creater_client(foo2, solution):
     rospy.wait_for_service('draw_some_nodes')
     try:
-        draw_some_nodes = rospy.ServiceProxy('draw_some_nodes', ListNodes)
-        resp1 = draw_some_nodes(foo2)
+        draw_some_nodes = rospy.ServiceProxy('draw_some_nodes', PlanNodes)
+        resp1 = draw_some_nodes(foo2, solution)
         return resp1.sum
     except rospy.ServiceException as e:
         print("Service call failed: %s" % e)
@@ -145,12 +145,7 @@ def astar_search(task, heuristic, make_open_entry=ordered_node_astar,
     root = searchspace.make_root_node(task.initial_state)
 
     #ADDED
-    # l = _thread.allocate_lock()
-    # _thread.start_new_thread(app_creater, ())
-    #app_creater()
     foo = []
-    megafoo = []
-    sendnodes = []
     iter = 0
     foo.append(root)
     #/ADDED
@@ -182,9 +177,10 @@ def astar_search(task, heuristic, make_open_entry=ordered_node_astar,
                 logging.info("%d Nodes expanded" % expansions)
 
                 #ADDED
-                # megafoo = pickle.dumps(megafoo, 0).decode()
-                # print(node_creater_client(megafoo))
+                while True:
+                    node_creater_client(foo2, "any stroke")
                 #/ADDED
+
                 return pop_node.extract_solution()
             rplan = None
             if use_relaxed_plan:
@@ -225,8 +221,7 @@ def astar_search(task, heuristic, make_open_entry=ordered_node_astar,
         #ADDED
         foo2 = foo.copy()
         foo2 = pickle.dumps(foo2, 0).decode()
-        print(node_creater_client(foo2))
-        # megafoo.append(foo2)
+        print(node_creater_client(foo2, "any stroke"))
         # ADDED
 
     logging.info("No operators left. Task unsolvable.")

@@ -1,8 +1,13 @@
 {% extends "layout.html" %}
 {% block content %}
     <form method="post" action="{{ url_for('signup') }}">
-        <img src="{{ url_for('static', filename='200.gif') }}">
+        <img src="{{ url_for('static', filename='201.gif') }}">
+        <p>Поиск A* (произносится «А звезда» или «А стар», от англ. A star) —
+            в информатике и математике, алгоритм поиска по первому наилучшему совпадению
+            на графе, который находит маршрут с наименьшей стоимостью от одной вершины
+            (начальной) к другой (целевой, конечной).</p>
+        <p>Далее приведена визуализация этого алгоритма</p>
         <input type="hidden" name="nodes" value=1>
-        <p><button type="submit">Send</button></p>
+        <p><button type="submit">Посмотрим!</button></p>
     </form>
 {% endblock %}
